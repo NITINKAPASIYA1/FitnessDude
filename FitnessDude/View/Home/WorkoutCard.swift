@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WorkoutCard: View {
     var workout : WorkoutModel
+   
     
     var body: some View {
         HStack{
