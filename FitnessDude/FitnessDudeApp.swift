@@ -11,7 +11,7 @@ import SwiftUI
 struct FitnessDudeApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            FitnessTabView()
         }
     }
 }

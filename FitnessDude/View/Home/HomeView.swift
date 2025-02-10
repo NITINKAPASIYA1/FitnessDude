@@ -12,100 +12,136 @@ struct HomeView: View {
     @State var active : Int = 52
     @State var stand : Int = 8
         
-    var mockActivity = [
+    var mockActivity  :[ActivityModel] = [
         ActivityModel(id: 0, title: "Today Steps", subtitle: "Goal 22,000", image: "figure.walk", tintColor: .green, amount: "1241"),
         ActivityModel(id: 1, title: "Today Steps", subtitle: "Goal 2,000", image: "figure.walk", tintColor: .red, amount: "6623"),
         ActivityModel(id: 2, title: "Today Steps", subtitle: "Goal 1,000", image: "figure.walk", tintColor: .cyan, amount: "76235"),
         ActivityModel(id: 3, title: "Today Steps", subtitle: "Goal 9,000", image: "figure.walk", tintColor: .orange, amount: "83211")
     ]
     
+    var mockWorkout: [WorkoutModel] = [
+        WorkoutModel(id: 0, title: "Running", image: "figure.walk", tintColor: .green, duration: "23 min", date: "Aug 3", calories: "522 kcal"),
+        WorkoutModel(id: 1, title: "Strength Training", image: "figure.run", tintColor: .red, duration: "76 min", date: "Oct 3", calories: "122 kcal"),
+        WorkoutModel(id: 2, title: "Walking", image: "figure.walk", tintColor: .brown, duration: "39 min", date: "Aug 3", calories: "522 kcal"),
+        WorkoutModel(id: 3, title: "Dancing", image: "figure.walk", tintColor: .purple, duration: "43 min", date: "Aug 8", calories: "522 kcal")
+    ]
+    
     var body: some View {
-        ScrollView (showsIndicators: false){
-            VStack(alignment: .leading){
-                Text("Welcome")
-                    .font(.largeTitle)
-                    .padding()
-                
-                HStack{
-                    Spacer()
+        NavigationStack {
+            ScrollView (showsIndicators: false){
+                VStack(alignment: .leading){
+                    Text("Welcome")
+                        .font(.largeTitle)
+                        .padding()
                     
-                    VStack(alignment: .leading){
-                        VStack(alignment: .leading,spacing: 8){
-                            Text("Calories")
-                                .font(.callout)
-                                .bold()
-                                .foregroundStyle(.red)
-                            
-                            Text("123 kcal")
-                                .bold()
-                        }
-                        .padding(.bottom)
+                    HStack{
+                        Spacer()
                         
-                        VStack(alignment: .leading,spacing: 8){
-                            Text("Active")
-                                .font(.callout)
-                                .bold()
-                                .foregroundStyle(.green)
+                        VStack(alignment: .leading){
+                            VStack(alignment: .leading,spacing: 8){
+                                Text("Calories")
+                                    .font(.callout)
+                                    .bold()
+                                    .foregroundStyle(.red)
+                                
+                                Text("123 kcal")
+                                    .bold()
+                            }
+                            .padding(.bottom)
                             
-                            Text("52 min")
-                                .bold()
+                            VStack(alignment: .leading,spacing: 8){
+                                Text("Active")
+                                    .font(.callout)
+                                    .bold()
+                                    .foregroundStyle(.green)
+                                
+                                Text("52 min")
+                                    .bold()
+                            }
+                            .padding(.bottom)
+                            
+                            VStack(alignment: .leading,spacing: 8){
+                                Text("Stand")
+                                    .font(.callout)
+                                    .bold()
+                                    .foregroundStyle(.blue)
+                                
+                                Text("8 Hours")
+                                    .bold()
+                            }
                         }
-                        .padding(.bottom)
                         
-                        VStack(alignment: .leading,spacing: 8){
-                            Text("Stand")
-                                .font(.callout)
-                                .bold()
-                                .foregroundStyle(.blue)
+                        Spacer()
+                        
+                        ZStack{
+                            ProgressCircleView(progress: $calories, color: .red, goal: 200)
                             
-                            Text("8 Hours")
-                                .bold()
+                            ProgressCircleView(progress: $active, color: .green, goal: 70)
+                                .padding(.all,20)
+                            
+                            ProgressCircleView(progress: $stand, color: .yellow, goal: 12)
+                                .padding(.all,40)
                         }
+                        .padding(.horizontal)
+                        
+                        Spacer()
                     }
+                    .padding()
                     
-                    Spacer()
-                    
-                    ZStack{
-                        ProgressCircleView(progress: $calories, color: .red, goal: 200)
+                    HStack{
+                        Text("Fitness Activity")
+                            .font(.title2)
                         
-                        ProgressCircleView(progress: $active, color: .green, goal: 70)
-                            .padding(.all,20)
+                        Spacer()
                         
-                        ProgressCircleView(progress: $stand, color: .yellow, goal: 12)
-                            .padding(.all,40)
+                        Button {
+                            print("Show More")
+                        } label: {
+                            Text("Show More")
+                                .padding(.all,10)
+                                .foregroundStyle(.white)
+                                .background(.blue)
+                                .cornerRadius(20)
+                        }
+                        
                     }
                     .padding(.horizontal)
                     
-                    Spacer()
-                }
-                .padding()
-                
-                HStack{
-                    Text("Fitness Activity")
-                        .font(.title2)
+                    LazyVGrid(columns: Array(repeating: GridItem(spacing:20), count: 2)) {
+                        ForEach(mockActivity, id:\.id) {
+                            i in
+                            ActivityCard(Activity: i)
+                        }
+                    }.padding()
                     
-                    Spacer()
                     
-                    Button {
-                        print("Show More")
-                    } label: {
-                        Text("Show More")
-                            .padding(.all,10)
-                            .foregroundStyle(.white)
-                            .background(.blue)
-                            .cornerRadius(20)
+                    HStack{
+                        Text("Recent Workouts")
+                            .font(.title2)
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            EmptyView()
+                        } label: {
+                            Text("Show More")
+                                .padding(.all,10)
+                                .foregroundStyle(.white)
+                                .background(.blue)
+                                .cornerRadius(20)
+                        }
+                        
                     }
-
+                    .padding(.horizontal)
+                    
+                    LazyVStack{
+                        ForEach(mockWorkout, id:\.id) {
+                            workout in
+                            WorkoutCard(workout: workout)
+                        }
+                    }
+                  
                 }
-                .padding(.horizontal)
-                
-                LazyVGrid(columns: Array(repeating: GridItem(spacing:20), count: 2)) {
-                    ForEach(mockActivity, id:\.id) {
-                        i in
-                        ActivityCard(Activity: i)
-                    }
-                }.padding()
-                
             }
         }
     }
