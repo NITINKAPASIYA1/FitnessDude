@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ActivityCard: View {
+    var Activity : ActivityModel
+    
     var body: some View {
         ZStack{
             Color(uiColor: .systemGray6)
@@ -16,17 +18,18 @@ struct ActivityCard: View {
             VStack{
                 HStack(alignment: .top){
                     VStack(alignment: .leading,spacing: 8){
-                        Text("Today Steps")
+                        Text(Activity.title)
                             .font(.title3)
                             .bold()
-                        Text("Goal : 10000")
+                        Text(Activity.subtitle)
+                            .font(.caption)
                     }
                     Spacer()
-                    Image(systemName: "figure.walk")
-                        .foregroundStyle(.green)
+                    Image(systemName: Activity.image)
+                        .foregroundStyle(Activity.tintColor)
                 }
                 
-                Text("16121")
+                Text("\(Activity.amount)")
                     .font(.title)
                     .bold()
                     .padding()
@@ -37,5 +40,5 @@ struct ActivityCard: View {
 }
 
 #Preview {
-    ActivityCard()
+    ActivityCard(Activity: ActivityModel(id: 0, title: "Today Steps", subtitle: "Goal 12,000", image: "figure.walk", tintColor: .green, amount: "8221"))
 }
