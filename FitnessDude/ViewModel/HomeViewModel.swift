@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 class HomeViewModel : ObservableObject {
+    let healthManager = HealthManager.shared
     
     @State var calories : Int = 123
     @State var active : Int = 52

@@ -19,6 +19,8 @@ struct ActivityCard: View {
                 HStack(alignment: .top){
                     VStack(alignment: .leading,spacing: 8){
                         Text(Activity.title)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
                             .font(.title3)
                             .bold()
                         Text(Activity.subtitle)
