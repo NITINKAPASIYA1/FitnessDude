@@ -29,6 +29,42 @@ class HomeViewModel : ObservableObject {
         WorkoutModel(id: 3, title: "Dancing", image: "figure.walk", tintColor: .purple, duration: "43 min", date: "Aug 8", calories: "522 kcal")
     ]
     
+    init() {
+//        Task{
+//            do{
+////                try await healthManager.requestHealthkitAccess()
+//                
+////                healthManager.fetchTodayCaloriesBurned { result in
+////                    switch result {
+////                        case .success(let success):
+////                            print(success)
+////                        case .failure(let failure):
+////                            print(failure.localizedDescription)
+////                    }
+////                }
+////                
+////                healthManager.fetchTodayStandHours{ result in
+////                    switch result {
+////                        case .success(let success):
+////                            print(success)
+////                        case .failure(let failure):
+////                            print(failure.localizedDescription)
+////                    }
+////                }
+//                
+//                
+//            }
+//            catch{
+//                print(error.localizedDescription)
+//            }
+//        }
+        
+        
+        
+        
+        
+    }
+    
     
     
     
